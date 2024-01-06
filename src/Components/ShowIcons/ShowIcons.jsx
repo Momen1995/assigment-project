@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import ErrorPage from "../ErrorPage/ErrorPage";
 
 export default function ShowIcons() {
-  const { styles, icons, inputIcons } = useContext(GlobalContext);
+  const { styles, icons, inputIcons, category } = useContext(GlobalContext);
   const [data, setData] = useState([]);
   const { id } = useParams();
  
@@ -32,12 +32,23 @@ export default function ShowIcons() {
         filteredData = icons.filter((icon) => icon.style === id);
         break;
       case "solid":
+        filteredData = icons.filter(
+          (icon) => icon.style === "solid" );
+        break;
       case "regular":
+        filteredData = icons.filter(
+          (icon) => icon.style === "regular" );
+        break;
       case "thin":
+        filteredData = icons.filter(
+          (icon) => icon.style === "thin" );
+        break;
       case "light":
-        filteredData = icons.filter((icon) => icon.style === id);
+        filteredData = icons.filter((icon) => icon.style === "light");
         break;
       case "alert":
+        filteredData = icons.filter((icon) => icon.category === "Alert");
+        break;
       case "alphabet":
       case "communication":
       case "business":
@@ -100,7 +111,7 @@ export default function ShowIcons() {
                   : "p-2"
               }`}
             >
-              {icon.category}
+              {category}
             </p>
           </div>
         ))}
