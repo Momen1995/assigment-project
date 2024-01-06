@@ -1,34 +1,29 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "../../Context/GLobalProvider";
-
 
 const Inputs = () => {
   const { icons, setInputIcons } = useContext(GlobalContext);
   const [inputValue, setInputValue] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
-  
-
-    useEffect(() => {
+  useEffect(() => {
     if (inputValue.trim() === "") {
       setInputIcons([]);
       setFilteredData([]);
       return;
     }
 
-    const filteredIcons = icons.filter(
-      (icon) =>
-        icon.category.toLowerCase().includes(inputValue.toLowerCase()) 
+    const filteredIcons = icons.filter((icon) =>
+      icon.category.toLowerCase().includes(inputValue.toLowerCase())
     );
     setFilteredData(filteredIcons);
     setInputIcons(filteredIcons);
   }, [inputValue, icons, setInputIcons]);
 
-
-  const handleInputChange = (e) =>{
+  const handleInputChange = (e) => {
     const value = e.target.value;
     setInputValue(value);
-  }
+  };
 
   return (
     <div className="w-8/12 mx-auto mt-3 mb-6">
@@ -36,10 +31,10 @@ const Inputs = () => {
         <input
           type="text"
           name="name"
-          className="border-2 w-full p-4 rounded"
-          placeholder="Search icon..."
           value={inputValue}
-          onClick={() => handleInputChange(e)}
+          placeholder="Search"
+          className="border-2 w-full p-4 rounded"
+          onChange={handleInputChange}
         />
       </form>
       {filteredData.length === 0 && inputValue !== "" && (
